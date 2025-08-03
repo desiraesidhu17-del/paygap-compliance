@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "paygap-compliance"
+version = "0.1.0"
+description = "Automated Pay Gap Compliance Reporting SaaS"
+authors = ["Desirae Sidhu <desiraesidhu@example.com>"]
+readme = "README.md"
+packages = [{ include = "paygap_compliance" }]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pandas = "^2.3.1"
+
+[tool.poetry.scripts]
+paygap-compliance = "paygap_compliance.main:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
