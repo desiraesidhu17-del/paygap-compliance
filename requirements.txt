@@ -1,0 +1,4 @@
+flask>=2.3
+numpy>=1.25
+pandas>=2.0
+playwright>=1.44

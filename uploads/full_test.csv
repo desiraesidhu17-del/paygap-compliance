@@ -1,0 +1,12 @@
+EmployeeID,Gender,HourlyPay,OT_Hours,OT_Pay,Bonus,Quartile
+1,Woman,40,5,250,1000,Q1
+2,Woman,42,3,150,1200,Q2
+3,Woman,41,4,200,1100,Q3
+4,Woman,39,6,300,1300,Q4
+5,Man,45,2,100,1500,Q1
+6,Man,47,5,250,1600,Q2
+7,Man,44,4,220,1400,Q3
+8,Man,46,3,180,1700,Q4
+9,Non-binary / 2S / GD,43,4,200,1250,Q2
+10,Non-binary / 2S / GD,44,2,100,1350,Q3
+11,PNA / Unknown,42,3,150,1200,Q1

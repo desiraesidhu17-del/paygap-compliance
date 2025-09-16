@@ -1,0 +1,267 @@
+/* ===== Base / tokens ===== */
+:root{
+  --bg:#f6f7fb;
+  --text:#111827;
+  --muted:#6b7280;
+  --border:#e5e7eb;
+  --shadow:0 1px 2px rgba(16,24,40,.06);
+  --primary:#2563eb;
+  --primary-hover:#1d4ed8;
+  --success:#16a34a;
+  --success-hover:#15803d;
+  --ring:#93c5fd;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+
+/* ===== Containers ===== */
+.container{max-width:1000px;margin:0 auto;padding:24px 16px}
+.container.narrow{max-width:980px}
+
+/* ===== Headings / utility ===== */
+h1,h2,h3{margin:0 0 .5rem}
+.h3{font-size:1.12rem}
+.h4{font-size:1rem}
+.mt-4{margin-top:1rem}
+.mono{font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+.small{font-size:.9rem}
+
+/* ===== Buttons (and inputs that should look like buttons) ===== */
+.btn,
+input[type="submit"].btn {
+  appearance:none;
+  display:inline-flex; align-items:center; justify-content:center;
+  gap:.45rem;
+  padding:.55rem .9rem;                 /* <-- height driver */
+  border:1px solid var(--border);
+  border-radius:.6rem;
+  background:#fff;
+  color:var(--text);
+  font-weight:600;
+  line-height:1.1;
+  cursor:pointer;
+  text-decoration:none;
+  transition:.15s background,.15s border-color,.15s box-shadow;
+}
+.btn:hover, input[type="submit"].btn:hover{background:#f9fafb}
+.btn.primary, input[type="submit"].btn.primary{
+  background:var(--primary); border-color:var(--primary); color:#fff;
+}
+.btn.primary:hover{background:var(--primary-hover);border-color:var(--primary-hover)}
+.btn.success{background:var(--success);border-color:var(--success);color:#fff}
+.btn.success:hover{background:var(--success-hover)}
+.btn.ghost{background:transparent;border-color:transparent;color:#374151}
+.btn.ghost:hover{background:#f3f4f6;border-color:var(--border)}
+.btn.block{width:100%}
+
+/* Keyboard focus */
+.btn:focus-visible,
+input[type="submit"].btn:focus-visible,
+input[type="text"]:focus-visible,
+input[type="email"]:focus-visible,
+input[type="number"]:focus-visible,
+input[type="date"]:focus-visible,
+select:focus-visible,
+input[type="file"]:focus-visible{
+  outline:none;
+  box-shadow:0 0 0 3px var(--ring);
+}
+
+/* ===== Inputs ===== */
+label{display:block; font-weight:600; margin:.35rem 0 .25rem}
+.help{color:var(--muted); font-size:.9rem; margin:.25rem 0 0}
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="date"],
+select{
+  width:100%;
+  padding:.55rem .7rem;                 /* <-- same vertical rhythm as .btn */
+  border:1px solid var(--border);
+  border-radius:.5rem;
+  background:#fff;
+  color:var(--text);
+  font-size:1rem;
+}
+
+/* File input — make its internal button match .btn exactly */
+input[type="file"]{
+  width:100%;
+  padding:.35rem;                        /* space around inner button */
+  border:1px solid var(--border);
+  border-radius:.6rem;
+  background:#fff;
+  color:var(--text);
+}
+input[type="file"]::file-selector-button{
+  margin-right:.6rem;
+  padding:.55rem .9rem;                  /* <-- same height as .btn */
+  border:1px solid var(--border);
+  border-radius:.6rem;
+  background:#fff;
+  color:var(--text);
+  font-weight:600;
+  cursor:pointer;
+  transition:.15s background,.15s border-color;
+}
+input[type="file"]::file-selector-button:hover{ background:#f9fafb }
+
+/* ===== Cards / grids ===== */
+.card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:1.1rem 1.2rem;
+  box-shadow:var(--shadow);
+}
+.grid-2{display:grid;grid-template-columns: 1fr minmax(320px,.95fr);gap:1.25rem}
+@media (max-width:900px){.grid-2{grid-template-columns:1fr}}
+
+/* Form layout */
+.form-grid{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap:14px 18px;
+}
+.form-grid .span-2{ grid-column: 1 / -1; }
+@media (max-width: 860px){ .form-grid{ grid-template-columns:1fr } }
+
+/* Actions rows */
+.actions-row{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0 0}
+.actions-row .spacer{flex:1}
+
+/* ===== Review page blocks (kept as-is) ===== */
+.page-head{margin:1.25rem 0 .5rem}
+.page-head .subtle{color:var(--muted);margin-top:.25rem}
+.review-head{display:flex;align-items:center;gap:16px;margin-bottom:16px}
+.review-head h1{font-size:1.5rem;font-weight:700}
+.review-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;width:100%}
+.review-actions .spacer{flex:1}
+
+/* Summary / lists (kept) */
+.summary{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.summary h2{font-size:1.1rem}
+.summary h3{font-size:1rem;margin:16px 0 8px}
+.meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px;margin:8px 0 12px}
+.meta-grid dt{font-size:.85rem;color:var(--muted)}
+.meta-grid dd{margin:0;font-weight:700}
+@media (max-width:900px){
+  .summary{grid-template-columns:1fr}
+  .meta-grid{grid-template-columns:1fr}
+  .review-actions{gap:8px}
+}
+
+/* Pills / badges (kept) */
+.pill{display:inline-flex;align-items:center;padding:.18rem .5rem;border-radius:999px;font-size:.8rem;font-weight:600;border:1px solid transparent}
+.pill-ok{background:#ecfdf5;color:#065f46;border-color:#a7f3d0}
+.pill-warn{background:#fff7ed;color:#9a3412;border-color:#fed7aa}
+.pill-mute{background:#f3f4f6;color:#4b5563;border-color:var(--border)}
+.badge{font-size:.75rem;padding:2px 8px;border-radius:999px;border:1px solid}
+.bad-ok{color:#065f46;background:#ecfdf5;border-color:#a7f3d0}
+.bad-supp{color:#92400e;background:#fffbeb;border-color:#fcd34d}
+
+/* Notes */
+.note{color:var(--muted);margin:.9rem 0 2rem}
+.footnote{margin-top:12px;color:var(--muted);font-size:.85rem}
+
+/* ===== Tables ===== */
+table.dataframe{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--border);border-radius:10px;overflow:hidden}
+table.dataframe thead th{
+  background:#f9fafb; color:#374151; font-weight:700; text-align:left;
+  padding:.6rem .7rem; border-bottom:1px solid var(--border);
+}
+table.dataframe tbody td{
+  padding:.55rem .7rem; border-bottom:1px solid #f3f4f6; vertical-align:top;
+}
+table.dataframe tbody tr:last-child td{border-bottom:none}
+table.gov .num{font-variant-numeric:tabular-nums; text-align:right; display:inline-block; min-width:4ch}
+.suppressed{color:#9a3412; background:#fff7ed; border:1px solid #fed7aa; border-radius:999px; padding:.1rem .5rem; font-weight:600}
+.suppressed-dash{color:#9ca3af}
+
+/* Flash messages */
+.flash-stack{display:grid;gap:.5rem;margin:0 0 1rem}
+.flash{padding:.6rem .8rem;border-radius:.6rem;border:1px solid var(--border);background:#fff}
+.flash.info{border-color:#bfdbfe;background:#eff6ff}
+.flash.error{border-color:#fecaca;background:#fff1f2}
+
+
+/* Make the native file button look like a Bootstrap .btn */
+.form-control[type="file"] {
+  padding: .25rem;             /* space around inner button + filename */
+}
+
+.form-control[type="file"]::file-selector-button {
+  margin-right: .5rem;
+  padding: .5rem .75rem;       /* matches .btn default */
+  border: 1px solid var(--bs-border-color, #dee2e6);
+  border-radius: .375rem;      /* .btn border radius */
+  background-color: #fff;
+  color: #212529;
+  font-weight: 600;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: background-color .15s ease, border-color .15s ease;
+}
+.form-control[type="file"]::file-selector-button:hover {
+  background-color: #f8f9fa;
+}
+
+/* Align text/number/date/select heights with buttons */
+.form-control,
+.form-select {
+  padding: .5rem .75rem;       /* same vertical rhythm as .btn */
+  line-height: 1.5;
+}
+
+.banner { padding:.75rem 1rem; border-radius:.5rem; margin:.75rem 0 1rem; }
+.banner.info { background:#eef2ff; color:#1e3a8a; }
+
+.has-help, .help-icon { border-bottom:1px dotted #9ca3af; cursor:help; }
+.help-icon { display:inline-block; width:1.1rem; text-align:center; border:1px solid #d1d5db; border-radius:.35rem; font-weight:600; margin-left:.25rem; }
+
+.callout { padding:.75rem 1rem; border-left:4px solid; border-radius:.25rem; margin:1rem 0; }
+.callout.success { background:#f0fdf4; border-color:#16a34a; color:#14532d; }
+.callout.error { background:#fef2f2; border-color:#b91c1c; color:#7f1d1d; }
+
+.btn.disabled { opacity:.55; cursor:not-allowed; }
+
+.pill.pill-ok { background:#dcfce7; color:#14532d; }
+.pill.pill-warn { background:#fee2e2; color:#7f1d1d; }
+.pill.pill-mute { background:#e5e7eb; color:#374151; }
+
+/* --- Review page: missing building blocks --- */
+
+/* Key–value pairs (left card) */
+.kv { margin:.25rem 0 1rem; }
+.kv-row {
+  display:grid; grid-template-columns: 220px 1fr;
+  gap:.5rem 1rem; align-items:center; padding:.25rem 0;
+}
+.kv-row dt { margin:0; color:var(--muted); font-size:.95rem; }
+.kv-row dd { margin:0; font-weight:700; }
+
+/* Gender pill list */
+.pill-list { list-style:none; padding:0; margin:.5rem 0 0; display:grid; gap:.4rem; }
+.pill-list li { display:flex; align-items:center; gap:.5rem; }
+.pill-list .label { min-width:210px; }
+
+/* Right card: “What will be published” */
+.table-status { list-style:none; padding:0; margin:.5rem 0 0; display:grid; gap:.45rem; }
+.table-status li { display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; }
+.table-status .label { min-width:260px; }
+
+/* Keep the action bar visible as users scroll */
+.actions-row { position:sticky; top:0; z-index:10; background:var(--bg); padding:.5rem 0; }
+
+/* Small spacing nits so it matches your screenshot */
+.card.grid-2 { margin-top:.5rem; }
+.note { margin: .75rem 0 1.5rem; }

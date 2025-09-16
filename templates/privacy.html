@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacy</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body{ background:#f6f7fb }
+    .container{ max-width:900px; margin:24px auto; padding:0 16px }
+    .card{ background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:16px 18px }
+    h1{ margin:0 0 .25rem } .muted{ color:#6b7280 }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>Privacy</h1>
+      <p class="muted">Plain-language summary (PIPA-aligned)</p>
+
+      <h3>Purpose</h3>
+      <p>We use your uploaded file only to create your Pay Transparency report.</p>
+
+      <h3>What we keep</h3>
+      {% if (retention_mode or 'ephemeral') == 'ephemeral' %}
+        <p><strong>Uploads are not retained.</strong> We process your file and do not store it after the operation finishes.</p>
+      {% else %}
+        <p>We keep your uploaded file and generated outputs for up to <strong>24 hours</strong> to help resolve issues, then delete them automatically.</p>
+      {% endif %}
+      <p>If you choose to <strong>publish</strong>, the clean, public version of your report is saved and made available at a public link until you remove it or replace it next year.</p>
+
+      <h3>Location & security</h3>
+      <p>Data is transferred over HTTPS. Access is limited to authorized personnel for support. We do not sell your data.</p>
+
+      <h3>Access & deletion</h3>
+      <p>To request access to, or deletion of, a <em>published</em> report, email <a href="mailto:privacy@example.com">privacy@example.com</a>. For uploads, see “What we keep.”</p>
+
+      <h3>Contact</h3>
+      <p>Privacy inquiries: <a href="mailto:privacy@example.com">privacy@example.com</a></p>
+    </div>
+  </div>
+</body>
+</html>

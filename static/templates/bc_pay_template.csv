@@ -1,0 +1,5 @@
+EmployeeID,Gender,Hourly,Overtime_Pay,Bonus,Received_Bonus
+1001,Woman,32.50,120.00,500,1
+1002,Man,29.75,0,0,0
+1003,Non-binary,35.00,210.50,1200,1
+1004,Prefer not to answer,27.00,0,0,0

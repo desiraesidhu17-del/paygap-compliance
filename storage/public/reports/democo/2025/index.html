@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>DemoCo — Pay Transparency Report (2025)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root{ --ink:#0f172a; --sub:#334155; --line:#e2e8f0; --muted:#475569;
+           --bg:#ffffff; --accent:#0ea5e9; --shade:#f8fafc; }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:14px/1.5 ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial}
+    .container-narrow{max-width:960px;margin:32px auto;padding:0 20px}
+    header.report-header{display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--line);padding-bottom:16px;margin-bottom:20px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .brand .logo{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#38bdf8)}
+    h1{font-size:22px;margin:0 0 4px}
+    .meta{color:var(--muted);font-size:12px}
+    .toolbar{display:flex;gap:10px}
+    .btn{
+      appearance:none;border:1px solid var(--line);background:#fff;
+      padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:600
+    }
+    .btn.primary{background:var(--accent);color:#fff;border-color:transparent;text-decoration:none;display:inline-block}
+    .section{margin:22px 0}
+    .card{border:1px solid var(--line);border-radius:12px;background:#fff}
+    .card .card-hd{padding:14px 16px;border-bottom:1px solid var(--line);background:var(--shade);font-weight:700}
+    .card .card-bd{padding:12px 16px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+    .kv{display:flex;gap:8px}
+    .kv .k{color:var(--muted);width:50%}
+    .kv .v{width:50%}
+    .table-wrap{overflow:auto}
+    table.gov, table.dataframe{width:100%;border-collapse:collapse;font-size:13px;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+    table.gov thead th, table.dataframe thead th{background:var(--shade);text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);font-weight:700}
+    table.gov tbody td, table.dataframe tbody td{padding:10px 12px;border-bottom:1px solid var(--line)}
+    table.gov tbody tr:last-child td, table.dataframe tbody tr:last-child td{border-bottom:none}
+    table.gov th:first-child, table.gov td:first-child, table.dataframe th:first-child, table.dataframe td:first-child{font-weight:600}
+    .note{color:var(--muted);font-size:12px;margin-top:6px}
+    footer.print-footer{margin-top:28px;padding-top:12px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+    @page{ size:A4; margin:16mm }
+    @media print{
+      .toolbar{display:none !important}
+      header.report-header{border:none;margin-bottom:8px;padding-bottom:0}
+      body{font-size:12px}
+      .brand .logo{ -webkit-print-color-adjust:exact; print-color-adjust:exact }
+      .card .card-hd{background:#f3f4f6 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      a{color:inherit;text-decoration:none}
+      .card{page-break-inside:avoid}
+      table{page-break-inside:auto}
+      tr{page-break-inside:avoid; page-break-after:auto}
+    }
+    @media (max-width:640px){ .grid{grid-template-columns:1fr} .kv .k,.kv .v{width:auto} }
+  </style>
+</head>
+<body>
+<div class="container-narrow">
+
+  <header class="report-header">
+    <div class="brand">
+      <div class="logo" aria-hidden="true"></div>
+      <div>
+        <h1>British Columbia • Pay Transparency Report</h1>
+        <div class="meta">
+          DemoCo
+          • Reporting period: 2025-01-01 to 2025-12-32
+          • Posted: 2025-08-21
+           • Contact: desiraesidhu17@gmail.com
+        </div>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <button class="btn" onclick="window.print()">Print / Save as PDF</button>
+      <a class="btn primary" href="/download_pdf?report_id=1">Download Official PDF</a>
+      <form method="POST" action="/publish">
+        <input type="hidden" name="report_id" value="1">
+        <button class="btn" type="submit">Publish</button>
+      </form>
+    </div>
+  </header>
+
+  
+
+  <!-- Employer info -->
+  <section class="section">
+    <div class="card">
+      <div class="card-hd">Employer information</div>
+      <div class="card-bd">
+        <div class="grid">
+          <div class="kv"><div class="k">Legal name</div><div class="v">DemoCo Ltd.</div></div>
+          <div class="kv"><div class="k">Trade name</div><div class="v">DemoCo</div></div>
+          <div class="kv"><div class="k">Industry (NAICS)</div><div class="v">5415</div></div>
+          <div class="kv"><div class="k">Employees in B.C. (as of Jan 1, 2025)</div><div class="v">30</div></div>
+          <div class="kv"><div class="k">Reference gender for gaps</div><div class="v">Man</div></div>
+          <div class="kv"><div class="k">Contact</div><div class="v">desiraesidhu17@gmail.com</div></div>
+        </div>
+        <div class="note">Scope: B.C.-based employees paid during the period. Categories with fewer than 10 individuals are suppressed.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gender distribution -->
+  <section class="section">
+    <div class="card">
+      <div class="card-hd">Employee gender distribution (B.C.)</div>
+      <div class="card-bd">
+        <div class="table-wrap">
+          <table class="dataframe dataframe gov">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Gender</th>
+      <th>Count</th>
+      <th>Included?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Man</td>
+      <td>10</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Non-binary, Two-Spirit, gender diverse</td>
+      <td>10</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Woman</td>
+      <td>10</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hourly pay -->
+  <section class="section">
+    <div class="card">
+      <div class="card-hd">Hourly pay</div>
+      <div class="card-bd">
+        <div class="table-wrap">
+          <table class="gov"><tbody><tr><td class="text-muted">No data available</td></tr></tbody></table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Overtime pay -->
+  <section class="section">
+    <div class="card">
+      <div class="card-hd">Overtime pay</div>
+      <div class="card-bd">
+        <div class="table-wrap">
+          <table class="dataframe dataframe gov">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Gender</th>
+      <th>Mean</th>
+      <th>Median</th>
+      <th>N</th>
+      <th>Suppressed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Man</td>
+      <td>137.409708</td>
+      <td>144.722704</td>
+      <td>10</td>
+      <td>Published</td>
+    </tr>
+    <tr>
+      <td>Non-binary, Two-Spirit, gender diverse</td>
+      <td>142.158134</td>
+      <td>149.313041</td>
+      <td>10</td>
+      <td>Published</td>
+    </tr>
+    <tr>
+      <td>Woman</td>
+      <td>103.765412</td>
+      <td>97.678821</td>
+      <td>10</td>
+      <td>Published</td>
+    </tr>
+  </tbody>
+</table>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bonus & incentive pay -->
+  <section class="section">
+    <div class="card">
+      <div class="card-hd">Bonus &amp; incentive pay</div>
+      <div class="card-bd">
+        <div class="table-wrap">
+          <table class="dataframe dataframe gov">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Gender</th>
+      <th>Mean</th>
+      <th>Median</th>
+      <th>N</th>
+      <th>Suppressed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Man</td>
+      <td>581.607036</td>
+      <td>589.091976</td>
+      <td>10</td>
+      <td>Published</td>
+    </tr>
+    <tr>
+      <td>Non-binary, Two-Spirit, gender diverse</td>
+      <td>475.404786</td>
+      <td>473.738675</td>
+      <td>10</td>
+      <td>Published</td>
+    </tr>
+    <tr>
+      <td>Woman</td>
+      <td>430.378419</td>
+      <td>423.20431</td>
+      <td>10</td>
+      <td>Published</td>
+    </tr>
+  </tbody>
+</table>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Participation -->
+  <section class="section">
+    <div class="card">
+      <div class="card-hd">Participation (any bonus)</div>
+      <div class="card-bd">
+        <div class="table-wrap">
+          <table class="dataframe dataframe gov">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Gender</th>
+      <th>Participation (any bonus)</th>
+      <th>N</th>
+      <th>Suppressed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Man</td>
+      <td>100.0</td>
+      <td>10</td>
+      <td>Published</td>
+    </tr>
+    <tr>
+      <td>Non-binary, Two-Spirit, gender diverse</td>
+      <td>100.0</td>
+      <td>10</td>
+      <td>Published</td>
+    </tr>
+    <tr>
+      <td>Woman</td>
+      <td>100.0</td>
+      <td>10</td>
+      <td>Published</td>
+    </tr>
+  </tbody>
+</table>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quartiles -->
+  <section class="section">
+    <div class="card">
+      <div class="card-hd">Representation by pay quartile</div>
+      <div class="card-bd">
+        <div class="table-wrap">
+          <table class="gov"><tbody><tr><td class="text-muted">No data available</td></tr></tbody></table>
+        </div>
+        <div class="note">Percentages may not total 100% due to rounding.</div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="print-footer">
+    Report ID: 1 •
+    Company: DemoCo •
+    Year: 2025
+  </footer>
+
+</div>
+</body>
+</html>

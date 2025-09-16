@@ -1,0 +1,29 @@
+{
+  "version": "2025-08-19",
+  "thresholds": { "suppression_min_n": 10 },
+  "period": { "months_required": 12, "allowed_periods": ["FY2024", "CY2024", "CY2025"] },
+  "employer_required_fields": ["legal_name", "trade_name", "naics", "band", "contact_email"],
+  "gender_normalization": {
+    "map": {
+      "m": "M", "male": "M", "man": "M",
+      "f": "W", "female": "W", "woman": "W",
+      "nb": "X", "non-binary": "X", "two-spirit": "X", "gender diverse": "X",
+      "u": "U", "unknown": "U", "prefer not to answer": "U"
+    },
+    "allowed": ["M", "W", "X", "U"]
+  },
+  "metrics": {
+    "hourly_rate": "(ordinary_pay + special_salary) / hours_worked_excl_ot",
+    "include_bonus_only_in_bonus_metrics": true,
+    "include_ot_only_in_ot_metrics": true
+  },
+  "reference_group_priority": ["M", "U", "X"],
+  "outputs": {
+    "required_sections": [
+      "employer_info", "gender_distribution", "hourly_pay",
+      "overtime_pay", "overtime_hours", "bonus", "participation",
+      "quartiles"
+    ]
+  }
+}
+

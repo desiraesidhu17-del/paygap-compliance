@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% block title %}Review — {{ report.trade_name or report.legal_name or "Employer" }} ({{ report.year }}){% endblock %}
+
+{% block content %}
+<div class="container narrow">
+  <!-- Page head -->
+  <header class="page-head">
+    <h1>Review &amp; publish your report</h1>
+    <div class="subtle">
+      {{ report.trade_name or report.legal_name or "Employer" }} · Year {{ report.year }}
+      · Reference gender:
+      <span class="has-help"
+            title="Used as the baseline for pay gap calculations. Gaps are computed versus this gender.">
+        {{ report.reference_gender }}
+      </span>
+    </div>
+
+    <!-- View-mode guidance -->
+    <div class="banner info" role="note" aria-live="polite">
+      <strong>Two views:</strong>
+      <span class="has-help" title="Internal QA view shows all groups so you can validate your data.">
+        Transparent (internal)
+      </span>
+      and
+      <span class="has-help" title="Public view hides any category with fewer than 10 people and removes all PII.">
+        Clean (public)
+      </span>. Use the buttons below to preview each.
+    </div>
+
+    <!-- Actions -->
+    <div class="actions-row" role="toolbar" aria-label="Review actions">
+      <a class="btn" href="javascript:history.back()" aria-label="Go back">Back</a>
+
+      <a class="btn" href="{{ url_for('report', report_id=report.id, mode='transparent') }}">
+        Preview: Transparent
+      </a>
+      <a class="btn primary" href="{{ url_for('report', report_id=report.id, mode='clean') }}">
+        Preview: Clean
+      </a>
+
+      <a class="btn" href="{{ url_for('download_pdf', report_id=report.id, mode='clean') }}">
+        Download Official PDF
+      </a>
+
+      {% set cannot_publish = (publish_guard and publish_guard.all_suppressed) or all_pay_tables_suppressed %}
+      {% if cannot_publish %}
+        <button class="btn disabled" type="button" aria-disabled="true"
+                title="All categories would be suppressed in the public view — cannot publish.">
+          Publish
+        </button>
+      {% else %}
+        <form method="post" action="{{ url_for('publish') }}" class="inline" aria-label="Publish report">
+          <input type="hidden" name="report_id" value="{{ report.id }}">
+          <button class="btn success" type="submit"
+                  title="Publishes the Clean (public) version; the Transparent view is for internal QA only.">
+            Publish
+          </button>
+        </form>
+      {% endif %}
+    </div>
+  </header>
+
+  <!-- Publishability callout -->
+  {% if cannot_publish %}
+    <section class="callout error" role="alert" aria-live="assertive">
+      <strong>Report cannot be published.</strong>
+      All categories would be suppressed in the Clean (public) view.
+      <div class="small">
+        Upload a file with at least one gender group containing 10+ employees, or broaden the reporting population.
+      </div>
+    </section>
+  {% else %}
+    <section class="callout success" role="status" aria-live="polite">
+      <strong>Ready to publish.</strong>
+      The public report will include the non-suppressed tables/rows shown below.
+    </section>
+  {% endif %}
+
+  <!-- Summary card -->
+  <section class="card grid-2" aria-labelledby="summary-h2">
+    <div>
+      <h2 id="summary-h2" class="h3">Quick summary</h2>
+      <dl class="kv">
+        <div class="kv-row">
+          <dt>Total employees in file</dt>
+          <dd class="mono">{{ gender_summary.total }}</dd>
+        </div>
+        <div class="kv-row">
+          <dt>Reference gender for gap</dt>
+          <dd>
+            <span class="has-help"
+                  title="Baseline used for gap calculations in Hourly, Overtime, and Bonus tables.">
+              {{ report.reference_gender }}
+            </span>
+          </dd>
+        </div>
+      </dl>
+
+      <h3 class="h4 mt-4">Counts by gender</h3>
+      <ul class="pill-list" role="list">
+        {% for g, n in gender_summary.by_gender.items() %}
+          {% set suppressed = (g in gender_summary.suppressed) %}
+          <li>
+            <span class="label">{{ g }}</span>
+            <span class="mono">{{ n }}</span>
+            {% if suppressed %}
+              <span class="pill pill-warn" title="Hidden in Clean view because this category has fewer than 10 individuals.">
+                Suppressed (n&lt;10)
+              </span>
+            {% else %}
+              <span class="pill pill-ok" title="Will appear in Clean (public) view.">Published</span>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="h3">What will be published</h3>
+      <ul class="table-status" role="list">
+        {% macro row(label, key, help=None) -%}
+          {%- set s = table_summary.get(key, {}) -%}
+          <li>
+            <span class="label">
+              {{ label }}
+              {%- if help -%}
+                <span class="help-icon" title="{{ help }}">?</span>
+              {%- endif -%}
+            </span>
+            {%- if not s or not s.get('available') -%}
+              <span class="pill pill-warn">Unavailable</span>
+            {%- else -%}
+              <span class="pill pill-ok">{{ s['published_rows'] }} published</span>
+              {%- if s['suppressed_rows'] and s['suppressed_rows'] > 0 -%}
+                <span class="pill pill-warn">{{ s['suppressed_rows'] }} suppressed</span>
+              {%- else -%}
+                <span class="pill pill-mute">0 suppressed</span>
+              {%- endif -%}
+            {%- endif -%}
+          </li>
+        {%- endmacro %}
+
+        {{ row("Employee gender distribution", "gender", "Counts by gender that meet the 10+ threshold will appear in the public report.") }}
+        {{ row("Hourly pay", "hourly", "Average and median hourly rates; gaps are relative to the reference gender.") }}
+        {{ row("Overtime pay", "overtime", "Average and median overtime pay; gaps are relative to the reference gender.") }}
+        {{ row("Bonus pay", "bonus", "Average and median bonus/incentive pay; gaps are relative to the reference gender.") }}
+        {{ row("Proportion receiving bonus pay", "participation", "Share of each gender with >0 bonus in the period.") }}
+        {{ row("Pay quartiles by gender", "quartiles", "Share of each gender in each pay quartile (Q1 lowest → Q4 highest).") }}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Compliance footnote -->
+  <p class="small note">
+    Categories with fewer than 10 individuals are suppressed to comply with B.C. Pay Transparency rules.
+  </p>
+
+  <!-- Mirrors the PDF structure so the preview feels identical -->
+  <section class="card" aria-labelledby="next-h2">
+    <div class="h3" id="next-h2" style="margin:0 0 .5rem">Before you publish</div>
+    <ul class="small muted" style="margin:0; padding-left:1rem; line-height:1.5">
+      <li>Double-check employer info (legal/trade name, NAICS, reporting period dates, BC headcount range).</li>
+      <li>Use <em>Preview: Clean</em> to see exactly what will be public.</li>
+      <li>After publishing, you must post the report on a publicly accessible website and keep it up until your next report.</li>
+    </ul>
+  </section>
+</div>
+{% endblock %}

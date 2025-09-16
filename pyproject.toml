@@ -1,17 +1,27 @@
 [tool.poetry]
 name = "paygap-compliance"
 version = "0.1.0"
-description = "Automated Pay Gap Compliance Reporting SaaS"
-authors = ["Desirae Sidhu <desiraesidhu@example.com>"]
-readme = "README.md"
-packages = [{ include = "paygap_compliance" }]
+description = ""
+authors = ["desiraesidhu17-del"]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-pandas = "^2.3.1"
+pandas = "*"
+click = "^8.1.7"
+rich = "^14.1.0"
+matplotlib = "^3.10.5"
+flask = "^3.1.1"
+weasyprint = "^66.0"
+boto3 = "^1.40.13"
+python-slugify = "^8.0.4"
+pytest = "^8.4.1"
+pdfkit = "^1.0.0"
+playwright = "^1.54.0"
+openpyxl = "^3.1.5"
+numpy = "^2.3.3"
 
 [tool.poetry.scripts]
-paygap-compliance = "paygap_compliance.main:main"
+paygap-compliance = "paygap_compliance.main:cli"
 
 [build-system]
 requires = ["poetry-core"]
