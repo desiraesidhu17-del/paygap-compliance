@@ -13,6 +13,9 @@
 </head>
 <body>
   <main class="container">
+    <nav>
+      <a href="{{ url_for('report.upload_form') }}">Upload CSV Preview</a>
+    </nav>
     {% with msgs = get_flashed_messages(with_categories=true) %}
       {% if msgs %}
         <div class="flash-stack">

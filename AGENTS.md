@@ -7,7 +7,7 @@
 
 ## Setup
 - `pip install -r requirements.txt`
-- (If using Playwright): `playwright install chromium`
+- `playwright install chromium`  # required for PDF export smoke tests
 
 ## Commands
 - Tests: `pytest -q`
