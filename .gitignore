@@ -1,0 +1,28 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# macOS junk
+.DS_Store
+
+# Logs & databases
+*.log
+*.sqlite3
+
+# Byte-compiled / build
+*.egg-info/
+dist/
+build/
+
+# Node / frontend (if ever added)
+node_modules/
+
+# VS Code
+.vscode/
