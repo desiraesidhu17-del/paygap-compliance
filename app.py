@@ -34,12 +34,15 @@ if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
 from paygap_compliance.services.ledger_to_totals_transform import transform_ledger_to_totals
+from paygap_compliance.routes.report import report_bp
 
 # -----------------------------------------------------------------------------
 # Flask setup + in-memory store
 # -----------------------------------------------------------------------------
 app = Flask(__name__, static_folder="static", static_url_path="/static")
 app.secret_key = os.environ.get("SECRET_KEY", "dev")
+
+app.register_blueprint(report_bp)
 
 REPORTS: dict[int, dict] = {}
 NEXT_ID = 1

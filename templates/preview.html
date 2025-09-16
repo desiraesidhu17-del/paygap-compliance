@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Preview Report</title>
+</head>
+<body>
+    <h1>Hourly Metrics Preview</h1>
+    <table border="1" cellpadding="6">
+        <thead>
+            <tr>
+                <th>Gender</th>
+                <th>Count</th>
+                <th>Hourly Mean</th>
+                <th>Suppressed</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for row in rows %}
+            <tr>
+                <td>{{ row["Gender"] }}</td>
+                <td>{{ row["Count"] }}</td>
+                <td>{{ row["HourlyMean"] }}</td>
+                <td>{{ row["Suppressed"] }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">No data available</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
